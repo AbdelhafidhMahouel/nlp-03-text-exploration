@@ -1,0 +1,25 @@
+doc_id,category,text
+CI-001,quality,Inspection found a surface defect on parts from line two.
+CI-002,quality,The root cause of the defect was a worn fixture at station four.
+CI-003,quality,Scrap rate increased after the supplier changed the material lot.
+CI-004,quality,Operator measured the dimension out of tolerance during first article inspection.
+CI-005,quality,Corrective action added a poka-yoke check to stop the defect at the source.
+CI-006,quality,Customer complaint traced to a missed inspection on the night shift.
+CI-007,maintenance,Unplanned downtime on line two was caused by a conveyor motor failure.
+CI-008,maintenance,Preventive maintenance replaced the worn bearing before a breakdown.
+CI-009,maintenance,The hydraulic press leaked oil and stopped production for two hours.
+CI-010,maintenance,Technician recorded vibration on the spindle motor during the shift.
+CI-011,maintenance,Preventive maintenance schedule reduced downtime on the packaging line.
+CI-012,maintenance,Spare parts shortage delayed the repair and extended downtime.
+CI-013,safety,Operator reported a near miss with a forklift at the loading dock.
+CI-014,safety,Lockout tagout was not applied before clearing the jam on the line.
+CI-015,safety,Safety glasses and gloves are required at the grinding station.
+CI-016,safety,Oil spill created a slip hazard near the hydraulic press.
+CI-017,safety,Ergonomic risk found where the operator lifts heavy boxes.
+CI-018,safety,Safety audit found a missing machine guard on the saw.
+CI-019,lean,Kaizen event reduced changeover time from forty to twelve minutes.
+CI-020,lean,Value stream map showed waiting waste between welding and paint.
+CI-021,lean,5S organized the tools at the station and cut search time.
+CI-022,lean,Excess inventory piled up between operations and hid the bottleneck.
+CI-023,lean,Standard work balanced the cycle time across the line.
+CI-024,lean,Operator motion waste was reduced by moving parts closer to the line.

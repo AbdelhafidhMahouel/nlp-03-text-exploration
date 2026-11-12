@@ -204,35 +204,62 @@ for category in token_df["category"].unique().to_list():
 
 # Co-occurrence examines which tokens appear near each other.
 
-# Define how many tokens on each side of a target token we include as context.
-# A window size of 2 means:
-#   - up to 2 tokens before the target token
-#   - up to 2 tokens after the target token
-# The target token itself is not included in its context list.
+# MODIFIED (Abdelhafidh Mahouel, 2026-11):
+# Instead of hard-coding a single window size, the co-occurrence logic is
+# wrapped in a reusable function so we can compare window sizes side by side.
+# WINDOW_SIZE controls how many tokens on each side of a target token
+# count as its context. The target token itself is not included.
+
 WINDOW_SIZE: int = 2
+WINDOW_SIZES_TO_COMPARE: list[int] = [2, 3]
+TARGET_TOKENS: list[str] = ["dog", "cat", "car", "truck"]
 
-# Define a new empty dictionary to store the co-occurrence information.
-# The keys will be target tokens,
-# and the values will be lists of context tokens that appear near the target token.
-co_occurrence_dict: dict[str, list[str]] = defaultdict(list)
 
-# Loop through each document in the corpus, tokenize the text,
-# and for each token, determine its context tokens based on the defined window size.
-for doc in corpus:
-    tokens = tokenize(doc["text"])
-    for i, token in enumerate(tokens):
-        start = max(0, i - WINDOW_SIZE)
-        end = min(len(tokens), i + WINDOW_SIZE + 1)
-        context = tokens[start:end]
-        for ctx in context:
-            if ctx != token:
-                co_occurrence_dict[token].append(ctx)
+def build_co_occurrence(
+    documents: list[dict[str, str]], window_size: int
+) -> dict[str, list[str]]:
+    """Map each token to the tokens within window_size positions of it."""
+    result: dict[str, list[str]] = defaultdict(list)
+    for doc in documents:
+        tokens = tokenize(doc["text"])
+        for i, token in enumerate(tokens):
+            start = max(0, i - window_size)
+            end = min(len(tokens), i + window_size + 1)
+            for ctx in tokens[start:end]:
+                if ctx != token:
+                    result[token].append(ctx)
+    return result
 
-# Show results
-for target in ["dog", "cat", "car", "truck"]:
-    print(f"\nContext for '{target}':")
-    print(co_occurrence_dict[target][:10])
 
+# Keep the default (window = 2) result for the rest of the analysis.
+co_occurrence_dict: dict[str, list[str]] = build_co_occurrence(corpus, WINDOW_SIZE)
+
+# Build one co-occurrence dictionary per window size we want to compare.
+co_occurrence_by_window: dict[int, dict[str, list[str]]] = {
+    size: build_co_occurrence(corpus, size) for size in WINDOW_SIZES_TO_COMPARE
+}
+
+# Show results: for each target token, compare the unique context words
+# and total context count at each window size.
+print("\nCO-OCCURRENCE COMPARISON BY WINDOW SIZE:")
+for target in TARGET_TOKENS:
+    print(f"\nTarget: '{target}'")
+    previous: set[str] = set()
+    for size in WINDOW_SIZES_TO_COMPARE:
+        context_list = co_occurrence_by_window[size][target]
+        unique_context = sorted(set(context_list))
+        added = sorted(set(unique_context) - previous) if previous else []
+        print(
+            f"  window={size}: {len(context_list)} context tokens, "
+            f"{len(unique_context)} unique -> {unique_context}"
+        )
+        if added:
+            print(f"    new at window={size}: {added}")
+        previous = set(unique_context)
+    LOG.info(
+        f"{target}: window sizes {WINDOW_SIZES_TO_COMPARE} -> "
+        f"{[len(co_occurrence_by_window[s][target]) for s in WINDOW_SIZES_TO_COMPARE]}"
+    )
 
 # ============================================================
 # Section 8. Create Bigrams (Local Word Pairs) and Compute Frequencies
@@ -318,7 +345,7 @@ print("- Co-occurrence reveals contextual relationships between words.")
 print("- Bigrams capture local structure beyond single tokens.")
 print("- Patterns emerge before any machine learning is applied.")
 
-print("\nYOURNAME SPECIFIC OBSERVATIONS:")
+print("\nMAHOUEL SPECIFIC OBSERVATIONS:")
 print("TODO")
 
 

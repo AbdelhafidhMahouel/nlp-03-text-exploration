@@ -12,16 +12,15 @@ cff-version: "1.2.0"
 type: software
 
 title: Web Mining and Applied NLP 03 Text Exploration
-date-released: "2026-03-20"
+date-released: "2026-11-11"
 
 authors:
-  - family-names: Case
-    given-names: Denise M.
-    orcid: "https://orcid.org/0000-0001-6165-7389"
+  - family-names: Mahouel
+    given-names: Abdelhafidh
     affiliation: "Northwest Missouri State University, USA"
 
-repository-code: "https://github.com/denisecase/nlp-03-text-exploration"
-url: "https://github.com/denisecase/nlp-03-text-exploration"
+repository-code: "https://github.com/AbdelhafidhMahouel/nlp-03-text-exploration"
+url: "https://github.com/AbdelhafidhMahouel/nlp-03-text-exploration"
 license: MIT
 
 abstract: |

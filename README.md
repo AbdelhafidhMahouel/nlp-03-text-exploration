@@ -13,9 +13,9 @@
 
 ## Project Overview
 
-Author: Abdelhafidh Mahouel
+ Author: Abdelhafidh Mahouel
 
-Date: 2026 November
+ Date: 2026 November
 
 Third project in the Web Mining and Applied NLP course.
 
